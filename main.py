@@ -49,13 +49,15 @@ class Event_Details(BaseModel):
     event: str
 
 @app.put('/events', status_code=200)
-async def get_date(item: Event_Details, request : Request):
+async def get_date(date: str, event: str):
+    id = 0
     out_json = {
-        "date": item.date,
-        "name": item.event,
+        "date": date,
+        "name": event,
         "date_added": datetime.date.today(),
-        "id" : 0
+        "id" : id
     }
+    id +=1
     list_of_events.append(out_json)
     return out_json
 
