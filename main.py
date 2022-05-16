@@ -8,6 +8,6 @@ app = FastAPI()
 def root():
     return {"start": "1970-01-01"}
 
-@app.get("/method")
+@app.get("/method", status_code=200)
 def root():
-    return {"method": "1970-01-01"}
+    return {"method": "GET"}
