@@ -49,32 +49,17 @@ class Item(BaseModel):
     date: str
     event: str
 
-# @app.put('/events', status_code=200)
-# def get_event(item: Item):
-#     id = Counter()
-
-#     out_json = {
-#         "date": item.date,
-#         "name": item.event,
-#         "date_added": '123', #datetime.date.today(),
-#         "id" : id
-#     }
-#     events.append(out_json)
-#     return out_json
-
 @app.put('/events', status_code=200)
-def get_event(item:Item):
-    return item
+def get_event(item: Item):
+    id = Counter()
 
-app.get("/events/{date}",status_code=200)
-async def event_on_date(date: str, response: Response):
-    if type(date) != str:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-    else:
-        if date in events['date']:
-            return events
-        else:
-            response.status_code = status.HTTP_404_NOT_FOUND
-    return response.status_code
+    out_json = {
+        "date": item.date,
+        "name": item.event,
+        "date_added": datetime.date.today().isoformat(),
+        "id" : id
+    }
+    events.append(out_json)
+    return out_json
     
 
