@@ -65,7 +65,7 @@ def get_event(item: Item):
     return out_json
     
 app.get("/events/{date}",status_code=200)
-async def event_on_date(date: str, response: Response):
+def event_on_date(date: str, response: Response):
     if type(date) != str:
         response.status_code = status.HTTP_400_BAD_REQUEST
     else:
