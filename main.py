@@ -56,7 +56,7 @@ def get_event(item: Item):
     date_now = date_add.strftime("%Y-%m-%d")
 
     out_json = {
-        "id" : id,
+        "id" : int(id),
         "name": item.event,
         "date": item.date,
         "date_added": date_now
