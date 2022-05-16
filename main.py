@@ -51,11 +51,10 @@ class Event_Details(BaseModel):
 
 @app.put('/events', status_code=200)
 async def get_date(item: Event_Details, request : Request):
-    json_input = await request.json()
     id = Counter()
     out_json = {
-        "date": json_input['date'],
-        "name": json_input['event'],
+        "date": item.date,
+        "name": item.event,
         "date_added": datetime.date.today(),
         "id" : id
     }
