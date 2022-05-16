@@ -1,5 +1,5 @@
 from typing import Dict
-from fastapi import FastAPI, Response, status
+from fastapi import FastAPI, Response, status, Request
 from pydantic import BaseModel
 from datetime import datetime
 from collections import Counter
@@ -45,15 +45,19 @@ def get_day(name: str, number: int, response: Response):
 
 list_of_events =[]
 
+class Event_Details(BaseModel):
+    date: str
+    event: str
+
 @app.put('/events', status_code=200)
-def get_date(date: str, event: str):
-    date_added = datetime.date.today()
+async def get_date(item: Event_Details, request :Request):
+    json_input = await request.json()
     id = Counter()
     out_json = {
         "id" : id,
-        "name": event,
-        "date": date,
-        "date_added": date_added
+        "name": json_input['event'],
+        "date": json_input['date'],
+        "date_added": datetime.date.today()
     }
     list_of_events.append(out_json)
     print(out_json)
