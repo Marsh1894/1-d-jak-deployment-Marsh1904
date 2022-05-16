@@ -10,6 +10,18 @@ app = FastAPI()
 def root():
     return {"start": "1970-01-01"}
 
-@app.get('/method',status_code=200)
-def get():
-    return {"method": "GET"}
+@app.put('/method',status_code=200)
+def put():
+    return {"method": "PUT"}
+
+@app.options('/method',status_code=200)
+def options():
+    return {"method": "OPTIONS"}
+
+@app.delete('/method',status_code=200)
+def delete():
+    return {"method": "DELETE"}
+
+@app.post('/method',status_code=201)
+def post():
+    return {"method": "POST"}
