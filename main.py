@@ -56,9 +56,10 @@ def get_event(item: Item):
     out_json = {
         "date": item.date,
         "name": item.event,
-        "date_added": datetime.date.today(),
+        "date_added": '123' #datetime.date.today(),
         "id" : id
     }
     events.append(out_json)
     return out_json
+    
 
