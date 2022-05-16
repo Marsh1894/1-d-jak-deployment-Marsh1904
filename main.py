@@ -43,6 +43,7 @@ def get_day(name: str, number: int, response: Response):
             response.status_code = status.HTTP_400_BAD_REQUEST
 
 
+list_of_events =[]
 
 @app.put('/events', status_code=200)
 def get_date(date: str, event: str):
@@ -50,8 +51,8 @@ def get_date(date: str, event: str):
     id = Counter()
     out_json = {
         "id" : id,
-        "name": in_json['event'],
-        "date": in_json['date'],
+        "name": event,
+        "date": date,
         "date_added": date_added
     }
     list_of_events.append(out_json)
