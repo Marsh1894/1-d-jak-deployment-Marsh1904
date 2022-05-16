@@ -52,12 +52,13 @@ class Item(BaseModel):
 @app.put('/events', status_code=200)
 def get_event(item: Item):
     id = Counter()
+    data_teraz = datetime.date.today().isoformat()
 
     out_json = {
         "id" : 0,
         "name": item.event,
         "date": item.date,
-        "date_added": "datetime.date.today().isoformat()",
+        "date_added": data_teraz,
     }
     return out_json
     
