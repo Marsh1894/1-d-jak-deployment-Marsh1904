@@ -57,7 +57,7 @@ def get_event(item: Item):
         "id" : 0,
         "name": item.event,
         "date": item.date,
-        #"date_added": datetime.date.today().isoformat(),
+        "date_added": str(datetime.date.today().isoformat()),
     }
     return out_json
     
