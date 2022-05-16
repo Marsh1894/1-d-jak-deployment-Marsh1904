@@ -1,5 +1,5 @@
 from typing import Dict
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -29,3 +29,14 @@ def delete():
 @app.post('/method',status_code=201)
 def post():
     return {"method": "POST"}
+
+days = {1:"monday", 2:"tuesday", 3:"wednesday", 4:"thursday", 5:"friday", 6:"saturday", 7:"sunday"}
+
+@app.get('/day', status_code=200)
+def get_day(name: str, number: int, response: Response):
+    if number in days:
+        if days.get(number) == name:
+            response.status_code = status.HTTP_200_OK
+        else:
+            response.status_code = status.HTTP_400_BAD_REQUEST
+
