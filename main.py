@@ -59,7 +59,6 @@ def get_event(item: Item):
         "date": item.date,
         "date_added": datetime.date.today().isoformat(),
     }
-    events.append(out_json)
     return out_json
     
 
