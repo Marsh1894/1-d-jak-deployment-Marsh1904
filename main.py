@@ -9,5 +9,5 @@ def root():
     return {"start": "1970-01-01"}
 
 @app.get("/method", status_code=200)
-def root():
-    return {"method": "GET"}
+def GiveGet():
+    return GiveGet({"method": "GET"})
