@@ -51,7 +51,7 @@ class Item(BaseModel):
 
 @app.put('/events', status_code=200)
 def get_event(item: Item):
-    id = Counter()
+    #id = Counter()
 
     out_json = {
         "id" : 0,
