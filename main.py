@@ -54,7 +54,7 @@ def get_event(item: Item):
     id = Counter()
 
     out_json = {
-        "id" : id,
+        "id" : 0,
         "name": item.event,
         "date": item.date,
         "date_added": datetime.date.today().isoformat(),
