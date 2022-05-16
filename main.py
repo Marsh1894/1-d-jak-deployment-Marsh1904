@@ -56,12 +56,12 @@ def get_event(item: Item):
     date_now = date_add.strftime("%Y-%m-%d")
 
     out_json = {
-        "id" : 0,
+        "id" : id,
         "name": item.event,
         "date": item.date,
         "date_added": date_now
     }
-    events = events.append(out_json)
+    events.append(out_json)
     return out_json
     
 app.get("/events/{date}",status_code=200)
