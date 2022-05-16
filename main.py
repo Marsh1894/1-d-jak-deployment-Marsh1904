@@ -70,6 +70,7 @@ async def event_on_date(date: str, response: Response):
         response.status_code = status.HTTP_400_BAD_REQUEST
     else:
         if date in events['date']:
+            response.status_code = status.HTTP_200_OK
             return events
         else:
             response.status_code = status.HTTP_404_NOT_FOUND
