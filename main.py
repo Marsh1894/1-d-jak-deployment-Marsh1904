@@ -44,14 +44,10 @@ def get_day(name: str, number: int, response: Response):
 
 
 @app.put('/events', status_code=200)
-def get_date(in_json, response: Response):
+def get_date(in_json):
     date_added = datetime.date(datetime.now())
-    out_json = {
-        "id" : 0,
+    return{"id" : 0,
         "name": in_json['event'],
         "date": in_json['date'],
-        "date_added": date_added
-    }
-    response.status_code = status.HTTP_200_OK
-    return{out_json}
+        "date_added": date_added}
 
