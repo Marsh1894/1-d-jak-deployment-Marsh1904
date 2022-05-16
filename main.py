@@ -61,7 +61,7 @@ def get_event(item: Item):
         "date": item.date,
         "date_added": date_now
     }
-    events.append(out_json)
+    events = events.append(out_json)
     return out_json
     
 app.get("/events/{date}",status_code=200)
