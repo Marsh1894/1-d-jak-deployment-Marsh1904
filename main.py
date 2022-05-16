@@ -45,7 +45,7 @@ def get_day(name: str, number: int, response: Response):
 
 
 @app.put('/events', status_code=200)
-def get_date(in_json):
+def get_date(date: str, event: str):
     date_added = datetime.date.today()
     id = Counter()
     out_json = {
@@ -54,6 +54,7 @@ def get_date(in_json):
         "date": in_json['date'],
         "date_added": date_added
     }
+    list_of_events.append(out_json)
     print(out_json)
     return out_json
 
