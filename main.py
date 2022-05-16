@@ -56,7 +56,7 @@ def get_event(item: Item):
     date_now = date_add.strftime("%Y-%m-%d")
 
     out_json = {
-        "id" : int(id),
+        "id" : id,
         "name": item.event,
         "date": item.date,
         "date_added": date_now
@@ -64,15 +64,15 @@ def get_event(item: Item):
     events.append(out_json)
     return out_json
     
-app.get("/events/{date}",status_code=200)
-def event_on_date(date: str, response: Response):
-    if type(date) != str:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-    else:
-        if date in events['date']:
-            response.status_code = status.HTTP_200_OK
-            return events
-        else:
-            response.status_code = status.HTTP_404_NOT_FOUND
-    return response.status_code
+# app.get("/events/{date}",status_code=200)
+# def event_on_date(date: str, response: Response):
+#     if type(date) != str:
+#         response.status_code = status.HTTP_400_BAD_REQUEST
+#     else:
+#         if date in events['date']:
+#             response.status_code = status.HTTP_200_OK
+#             return events
+#         else:
+#             response.status_code = status.HTTP_404_NOT_FOUND
+#     return response.status_code
 
