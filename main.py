@@ -51,7 +51,7 @@ class Item(BaseModel):
 
 @app.put('/events', status_code=200)
 def get_event(item: Item):
-    id = Counter()
+    int(id = Counter())
     date_add = datetime.now()
     date_now = date_add.strftime("%Y-%m-%d")
 
