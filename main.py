@@ -1,6 +1,7 @@
 from typing import Dict
 from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
+from datetime import datetime
 
 app = FastAPI()
 
@@ -39,4 +40,16 @@ def get_day(name: str, number: int, response: Response):
             response.status_code = status.HTTP_200_OK
         else:
             response.status_code = status.HTTP_400_BAD_REQUEST
+
+
+
+@app.put('/events', status_code=200)
+def get_date(in_json):
+    date_added = datetime.date(datetime.now())
+    json_2 = {
+        "id" : 0,
+        "name": in_json['event'],
+        "date": in_json['date'],
+        "date_added": date_added
+    }
 
