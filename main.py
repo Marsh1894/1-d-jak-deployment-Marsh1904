@@ -90,7 +90,7 @@ def put_event(data: EventCounterRq):
     date = data.date
     id = settings.events_counter
     settings.events_counter += 1
-    date_added = str(datetime.date.today())
+    date_added = date_add.strftime("%Y-%m-%d")
 
     res = EventCounterResponse(
         name=name, date=date, id=id, date_added=date_added
