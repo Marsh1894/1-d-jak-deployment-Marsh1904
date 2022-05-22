@@ -1,10 +1,30 @@
-from typing import Dict
-from fastapi import FastAPI, Response, status, Request
-from pydantic import BaseModel
+from typing import Dict, List
+from fastapi import FastAPI, Response, status, Request, HTTPException
+from pydantic import BaseModel, BaseSettings
 from datetime import datetime
 from collections import Counter
 
 app = FastAPI()
+
+class Settings(BaseSettings):
+    events_counter: int = 0
+
+
+class EventCounterRq(BaseModel):
+    event: str
+    date: str
+
+
+class EventCounterResponse(BaseModel):
+    name: str
+    date: str
+    id: int
+    date_added: str
+
+
+settings = Settings()
+
+events: List[EventCounterResponse] = []
 
 
 
@@ -49,19 +69,58 @@ class Item(BaseModel):
     date: str
     event: str
 
-@app.put('/events', status_code=200)
-def get_event(item: Item):
-    id = Counter()
-    date_add = datetime.now()
-    date_now = date_add.strftime("%Y-%m-%d")
+# @app.put('/events', status_code=200)
+# def get_event(item: Item):
+#     id = Counter()
+#     date_add = datetime.now()
+#     date_now = date_add.strftime("%Y-%m-%d")
 
-    out_json = {
-        "id" : 0,
-        "name": item.event,
-        "date": item.date,
-        "date_added": date_now
-    }
-    return out_json
-    
+#     out_json = {
+#         "id" : 0,
+#         "name": item.event,
+#         "date": item.date,
+#         "date_added": date_now
+#     }
+#     return out_json
+
+@app.put("/events", status_code=200, response_model=EventCounterResponse)
+def put_event(data: EventCounterRq):
+
+    name = data.event
+    date = data.date
+    id = settings.events_counter
+    settings.events_counter += 1
+    date_added = str(datetime.date.today())
+
+    res = EventCounterResponse(
+        name=name, date=date, id=id, date_added=date_added
+    )
+    events.append(res)
+
+    return res
+
+
+@app.get(
+    "/events/{date}",
+    status_code=200,
+    response_model=List[EventCounterResponse],
+)
+def get_event(date: str):
+
+    try:
+        _ = (datetime.datetime.strptime(date, "%Y-%m-%d"),)
+    except:
+        raise HTTPException(status_code=400, detail="Invalid date format")
+
+    final_events: List[EventCounterResponse] = []
+
+    for event in events:
+        if event.date == date:
+            final_events.append(event)
+
+    if len(final_events) > 0:
+        return final_events
+    else:
+        raise HTTPException(status_code=404, detail="Didn't find any data")
 
 
