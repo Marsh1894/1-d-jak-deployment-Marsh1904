@@ -102,28 +102,44 @@ def put_event(data: EventCounterRq):
 
     return res
 
-
-@app.get(
-    "/events/{date}",
-    status_code=200,
-    response_model=List[EventCounterResponse],
-)
-def get_event(date: str):
-
+@app.get("/events/{date}", status_code=201)
+def get_event(date: str, response: Response):
+    event_date=[]
+    format = "/%Y-%m-%d"
     try:
-        _ = (datetime.datetime.strptime(date, "%Y-%m-%d"),)
-    except:
-        raise HTTPException(status_code=400, detail="Invalid date format")
+        datetime.datetime.strptime(date, format)
+        for event in events:
+            if event["date"] == date:
+                event_date.append(event)
+        if len(event_date) == 0:
+            response.status_code = 404
+            return "not found"
+        return event_date
 
-    final_events: List[EventCounterResponse] = []
+    except ValueError:
+        response.status_code = 400
+        return "Enter correct date"
 
-    for event in events:
-        if event.date == date:
-            final_events.append(event)
 
-    if len(final_events) > 0:
-        return final_events
-    else:
-        raise HTTPException(status_code=404, detail="Didn't find any data")
+# @app.get("/events/{date}", status_code=200, response_model=List[EventCounterResponse])
+# def get_event(date: str):
+
+#     try:
+#         _ = (datetime.datetime.strptime(date, "%Y-%m-%d"),)
+#     except:
+#         raise HTTPException(status_code=400, detail="Invalid date format")
+
+#     final_events: List[EventCounterResponse] = []
+
+#     for event in events:
+#         if event.date == date:
+#             final_events.append(event)
+
+#     if len(final_events) > 0:
+#         return final_events
+#     else:
+#         raise HTTPException(status_code=404, detail="Didn't find any data")
+
+
 
 
