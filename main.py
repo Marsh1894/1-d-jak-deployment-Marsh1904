@@ -86,11 +86,14 @@ class Item(BaseModel):
 @app.put("/events", status_code=200, response_model=EventCounterResponse)
 def put_event(data: EventCounterRq):
 
+    date_add = datetime.now()
+    date_now = date_add.strftime("%Y-%m-%d")
+
     name = data.event
     date = data.date
     id = settings.events_counter
     settings.events_counter += 1
-    date_added = date_add.strftime("%Y-%m-%d")
+    date_added = date_now
 
     res = EventCounterResponse(
         name=name, date=date, id=id, date_added=date_added
